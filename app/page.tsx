@@ -16,14 +16,15 @@ import {
   Gift,
   Smartphone,
   MousePointerClick,
-  ChevronRight,
   Activity,
-  CheckCircle2,
-  Lock,
   Wallet,
-  PlayCircle
+  ArrowUpRight,
+  Send,
+  BookOpen,
+  MonitorPlay,
+  Lock,
+  CalendarDays
 } from 'lucide-react';
-import Image from 'next/image';
 
 const STAGGER_DELAY = 0.1;
 
@@ -36,28 +37,61 @@ const fadeIn: Variants = {
   })
 };
 
+const SectionHeader = ({ subhead, title, highlight, description }: { subhead: string, title: string, highlight: string, description: string }) => (
+  <div className="text-center max-w-3xl mx-auto mb-16">
+    <motion.p 
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="text-[#E50914] text-[10px] font-bold uppercase tracking-widest mb-4"
+    >
+      {subhead}
+    </motion.p>
+    <motion.h2 
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.1 }}
+      className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight"
+    >
+      {title} <span className="text-[#E50914]">{highlight}</span>
+    </motion.h2>
+    <motion.p 
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.2 }}
+      className="text-gray-400 text-lg leading-relaxed px-4"
+    >
+      {description}
+    </motion.p>
+  </div>
+);
+
 function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#222222] bg-[#090909]">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          {/* Logo Icon */}
-          <div className="w-6 h-6 bg-[#E50914] rounded-sm"></div>
-          <span className="font-display font-bold text-xl tracking-tighter text-white">BIGCASH</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#090909]/90 backdrop-blur-md border-b border-[#1f1f1f]">
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-[#E50914] rounded-lg flex items-center justify-center">
+            <span className="font-bold text-white text-sm tracking-tighter">BC</span>
+          </div>
+          <span className="font-bold text-xl tracking-tight text-white flex items-baseline">BigCash<span className="text-[#E50914] text-2xl leading-none">.</span></span>
         </div>
         
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400">
-          <a href="#offers" className="hover:text-white transition-colors">Offers</a>
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+          <a href="#features" className="hover:text-white transition-colors">Features</a>
           <a href="#performance" className="hover:text-white transition-colors">Performance</a>
-          <a href="#testimonials" className="hover:text-white transition-colors">Testimonials</a>
+          <a href="#offers" className="hover:text-white transition-colors">Offers</a>
+          <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
           <a href="#community" className="hover:text-white transition-colors">Community</a>
         </div>
 
-        <div className="flex items-center gap-4">
-          <button className="hidden md:block text-sm font-medium px-4 py-2 text-gray-300 hover:text-white transition-colors">
-            Log In
+        <div className="flex items-center gap-6">
+          <button className="hidden md:block text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            Sign In
           </button>
-          <button className="bg-[#E50914] text-sm font-bold px-6 py-2 rounded-full shadow-[0_0_20px_rgba(229,9,20,0.3)] hover:bg-[#ff1a26] transition-all text-white">
+          <button className="bg-[#E50914] text-sm font-bold px-6 py-2.5 rounded-lg shadow-[0_0_20px_rgba(229,9,20,0.2)] hover:bg-[#ff1a26] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all text-white">
             Join Network
           </button>
         </div>
@@ -68,158 +102,144 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at 70% 30%, #E50914 0%, transparent 70%)' }}></div>
-      </div>
+    <section className="relative pt-40 pb-20 overflow-hidden min-h-screen flex items-center bg-[#090909]">
+      {/* Background glow */}
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[800px] h-[800px] bg-[#E50914] rounded-full blur-[200px] opacity-[0.07] pointer-events-none" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          className="max-w-2xl flex flex-col justify-center"
-        >
-          <motion.div custom={0} variants={fadeIn} className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#222222] bg-[#111111] text-[10px] font-bold text-[#E50914] uppercase tracking-widest mb-6 w-fit">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
-            </span>
-            Next-Gen Performance Infrastructure
+      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center w-full">
+        <motion.div initial="hidden" animate="visible" className="max-w-xl">
+          <motion.div custom={0} variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#222222] bg-[#111111] mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#E50914]" />
+            <span className="text-xs font-bold text-gray-300 tracking-wide uppercase">Now accepting new affiliates</span>
           </motion.div>
           
-          <motion.h1 custom={1} variants={fadeIn} className="text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight text-white mb-6">
-            Where Top <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Affiliates</span> <br/>Earn Bigger.
+          <motion.h1 custom={1} variants={fadeIn} className="text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight text-white mb-6">
+            Where Top <br/>Affiliates <span className="text-[#E50914]">Earn <br/>Bigger.</span>
           </motion.h1>
           
-          <motion.p custom={2} variants={fadeIn} className="text-lg text-gray-400 mb-8 max-w-md leading-relaxed">
-            Join the elite network promoting high-converting Sweepstakes and Lead Gen offers with sub-second tracking and enterprise-grade payouts.
+          <motion.p custom={2} variants={fadeIn} className="text-lg text-gray-400 mb-10 leading-relaxed pr-8">
+            Join thousands of affiliates promoting high-converting Sweepstakes, Mobile App, and Lead Generation offers with faster approvals, exclusive campaigns, and industry-leading payouts.
           </motion.p>
           
-          <motion.div custom={3} variants={fadeIn} className="flex flex-wrap items-center gap-4">
-            <button className="bg-white text-black px-8 py-4 rounded-full font-bold text-base hover:bg-gray-200 transition-all flex items-center gap-2 group">
-              Join as Affiliate
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <motion.div custom={3} variants={fadeIn} className="flex flex-wrap items-center gap-4 mb-16">
+            <button className="bg-[#E50914] text-white px-8 py-3.5 rounded-lg font-bold text-base hover:bg-[#ff1a26] transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(229,9,20,0.2)]">
+              Join as Affiliate <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="border border-[#222222] bg-[#111111] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-[#1a1a1a] transition-all flex items-center gap-2">
+            <button className="border border-[#222222] bg-transparent text-white px-8 py-3.5 rounded-lg font-bold text-base hover:bg-[#111111] transition-all">
               Explore Offers
             </button>
           </motion.div>
+
+          <motion.div custom={4} variants={fadeIn} className="flex items-center gap-4">
+            <div className="flex -space-x-3">
+              <div className="w-10 h-10 rounded-full border-2 border-[#090909] bg-[#1f1f1f] flex items-center justify-center text-xs font-bold text-gray-400">A</div>
+              <div className="w-10 h-10 rounded-full border-2 border-[#090909] bg-[#2a2a2a] flex items-center justify-center text-xs font-bold text-gray-400">B</div>
+              <div className="w-10 h-10 rounded-full border-2 border-[#090909] bg-[#333333] flex items-center justify-center text-xs font-bold text-gray-400">C</div>
+              <div className="w-10 h-10 rounded-full border-2 border-[#090909] bg-[#444444] flex items-center justify-center text-xs font-bold text-gray-400">D</div>
+            </div>
+            <div>
+              <div className="text-white font-bold text-sm">1,000+ Active Affiliates</div>
+              <div className="text-gray-500 text-xs">Trust BigCash Network daily</div>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* Dashboard Mockup Illustration */}
+        {/* Dashboard Mockup */}
         <motion.div 
-          initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
-          animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="relative perspective-[1000px] flex items-center justify-center"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 shadow-2xl relative"
         >
-          <div className="w-full bg-[#111111] rounded-2xl border border-[#222222] shadow-2xl overflow-hidden flex flex-col transform-gpu">
-            {/* Top Bar */}
-            <div className="h-12 border-b border-[#222222] flex items-center justify-between px-6 bg-[#0c0c0c]">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#333]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#333]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#333]"></div>
-                <span className="ml-4 text-[11px] font-mono text-gray-500 uppercase tracking-widest">Performance_Console_v4.2</span>
+          {/* Top Bar Earnings */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-lg bg-[#E50914]/10 border border-[#E50914]/20 flex items-center justify-center">
+                <BarChart3 className="w-5 h-5 text-[#E50914]" />
               </div>
-              <div className="text-[11px] text-[#E50914] font-bold">LIVE DATA SOURCE</div>
+              <div>
+                <div className="text-gray-500 text-[10px] font-bold mb-1 uppercase tracking-widest">Live Earnings</div>
+                <div className="text-2xl font-bold text-white">$47,832.50</div>
+              </div>
             </div>
-
-            <div className="flex-1 p-6 grid grid-cols-2 gap-6">
-              <div className="col-span-2 bg-[#090909] rounded-xl border border-[#222222] p-5 relative overflow-hidden">
-                <div className="flex justify-between items-end mb-4">
-                  <div>
-                    <div className="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Net Payout Velocity</div>
-                    <div className="text-3xl font-bold mt-1 text-[#E50914]">$142,850.22</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[10px] text-green-500 font-bold">+12.4% INCREASE</div>
-                    <div className="text-xs text-gray-500">7-Day Rolling Cycle</div>
-                  </div>
-                </div>
-                <div className="h-24 w-full flex items-end gap-1 px-1">
-                  <div className="flex-1 bg-[#222] h-1/2 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#222] h-2/3 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#222] h-1/2 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#E50914] h-4/5 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#E50914] h-full rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#222] h-3/4 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#222] h-1/2 rounded-t-sm"></div>
-                  <div className="flex-1 bg-[#222] h-2/3 rounded-t-sm"></div>
-                </div>
-              </div>
-
-              <div className="bg-[#090909] rounded-xl border border-[#222222] p-4">
-                <div className="text-[10px] text-gray-500 uppercase font-bold mb-3 tracking-widest">Top Categories</div>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-white">Sweepstakes</span>
-                    <span className="text-xs font-mono text-white">$4.22 EPC</span>
-                  </div>
-                  <div className="w-full h-1 bg-[#1a1a1a] rounded-full overflow-hidden"><div className="w-[85%] h-full bg-[#E50914]"></div></div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-white">Lead Generation</span>
-                    <span className="text-xs font-mono text-white">$3.10 EPC</span>
-                  </div>
-                  <div className="w-full h-1 bg-[#1a1a1a] rounded-full overflow-hidden"><div className="w-[60%] h-full bg-[#E50914] opacity-50"></div></div>
-                </div>
-              </div>
-
-              <div className="bg-[#090909] rounded-xl border border-[#222222] p-4">
-                <div className="text-[10px] text-gray-500 uppercase font-bold mb-3 tracking-widest">Recent Payouts</div>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-gray-400">ID 8829...01</span>
-                    <span className="text-white font-mono">$12,400.00</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-gray-400">ID 8829...42</span>
-                    <span className="text-white font-mono">$8,120.50</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="text-gray-400">ID 8829...99</span>
-                    <span className="text-white font-mono">$22,000.00</span>
-                  </div>
-                  <button className="w-full py-1 text-[10px] font-bold text-gray-500 hover:text-white transition-colors uppercase border-t border-[#222] mt-1 pt-2">Real-Time Feed</button>
-                </div>
-              </div>
+            <div className="px-3 py-1.5 rounded-full border border-[#1f1f1f] bg-[#161616] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-bold text-gray-300 tracking-wider">Live</span>
             </div>
           </div>
+
+          {/* Grid 4 cards */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4">
+              <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                 <TrendingUp className="w-3 h-3 text-[#E50914]" /> EPC
+              </div>
+              <div className="text-lg font-bold text-white mb-1">$2.47</div>
+              <div className="text-green-500 text-[10px] font-bold">+12.3%</div>
+            </div>
+            <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4">
+              <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                 <MousePointerClick className="w-3 h-3 text-[#E50914]" /> CTR
+              </div>
+              <div className="text-lg font-bold text-white mb-1">4.82%</div>
+              <div className="text-green-500 text-[10px] font-bold">+8.1%</div>
+            </div>
+            <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4">
+              <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                 <span className="text-[#E50914] font-medium">$</span> WEEKLY PAYOUT
+              </div>
+              <div className="text-lg font-bold text-white mb-1">$12,450</div>
+              <div className="text-green-500 text-[10px] font-bold">Due Friday</div>
+            </div>
+            <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4">
+              <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                 <Globe className="w-3 h-3 text-[#E50914]" /> TOP COUNTRY
+              </div>
+              <div className="text-lg font-bold text-white mb-1">United States</div>
+              <div className="text-gray-400 text-[10px] font-medium">42% traffic</div>
+            </div>
+          </div>
+
+          {/* Chart Placeholder */}
+          <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4 mb-6">
+            <div className="flex justify-between items-center mb-6">
+              <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">CONVERSIONS (7D)</div>
+              <Activity className="w-3 h-3 text-[#E50914]" />
+            </div>
+            <div className="h-20 w-full relative">
+               <svg viewBox="0 0 100 30" className="w-full h-full preserve-3d" preserveAspectRatio="none">
+                 <path d="M0,25 L10,20 L20,28 L30,15 L40,18 L50,5 L60,12 L70,2 L80,10 L90,3 L100,8" fill="none" stroke="#E50914" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+               </svg>
+            </div>
+            <div className="flex justify-between text-[9px] text-gray-600 font-bold uppercase mt-2">
+               <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+          </div>
+
+          {/* Top Offers */}
+          <div className="bg-[#161616] border border-[#1f1f1f] rounded-xl p-4">
+             <div className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-4">TOP OFFERS</div>
+             <div className="space-y-3">
+               {[
+                 { name: "Sweepstakes - iPhone...", clicks: "1,247", payout: "$4.50" },
+                 { name: "Finance - Credit Check", clicks: "892", payout: "$12.00" },
+                 { name: "Gaming - Casino App", clicks: "634", payout: "$35.00" },
+               ].map((offer, i) => (
+                 <div key={i} className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#E50914]" />
+                      <span className="text-gray-300 font-medium">{offer.name}</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <span className="text-gray-500 text-[10px]">{offer.clicks}</span>
+                      <span className="text-green-500 font-bold">{offer.payout}</span>
+                    </div>
+                 </div>
+               ))}
+             </div>
+          </div>
+
         </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function TrustBar() {
-  const stats = [
-    { label: "Paid to Affiliates", value: "$25M+" },
-    { label: "Active Countries", value: "150+" },
-    { label: "Active Affiliates", value: "1,000+" },
-    { label: "Exclusive Offers", value: "500+" },
-    { label: "Tracking Uptime", value: "99.9%" },
-  ];
-
-  return (
-    <section className="py-12 border-y border-[#222222] bg-[#0c0c0c]">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-wrap items-center justify-between gap-8">
-          {stats.map((stat, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center"
-            >
-              <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mb-1">{stat.label}</div>
-              <div className={`text-2xl md:text-3xl font-bold ${stat.label === 'Tracking Uptime' ? 'text-[#E50914]' : 'text-white'}`}>{stat.value}</div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -227,40 +247,41 @@ function TrustBar() {
 
 function Features() {
   const features = [
-    { icon: Zap, title: "Faster Payouts", desc: "Get paid twice a week with zero delays. Cash flow is king." },
-    { icon: TrendingUp, title: "Highest EPC", desc: "We optimize our landing pages relentlessly to ensure maximum earnings." },
-    { icon: Award, title: "Exclusive Offers", desc: "Access premium campaigns you won't find on public networks." },
-    { icon: Activity, title: "Reliable Tracking", desc: "Enterprise-grade infrastructure ensures no click is ever lost." },
-    { icon: Users, title: "Dedicated Managers", desc: "Expert support available 24/7 to help you scale your campaigns." },
-    { icon: Globe, title: "Global Offers", desc: "Monetize traffic from over 150+ countries with localized funnels." }
+    { icon: Zap, title: "Faster Payouts", desc: "Get paid twice weekly with same-day processing for top performers. No more waiting 30+ days." },
+    { icon: TrendingUp, title: "Highest EPC", desc: "Industry-leading earnings per click with optimized funnels and exclusive high-paying offers." },
+    { icon: Lock, title: "Exclusive Offers", desc: "Access campaigns you will not find anywhere else. Direct advertiser relationships only." },
+    { icon: ShieldCheck, title: "Reliable Tracking", desc: "99.9% uptime with real-time pixel firing, postback URLs, and fraud detection built in." },
+    { icon: Users, title: "Dedicated Managers", desc: "Your personal affiliate manager available 24/7 to help scale and optimize your campaigns." },
+    { icon: CalendarDays, title: "Twice Weekly Payments", desc: "Net-3 and net-7 payment terms available. Choose what works for your cash flow." },
+    { icon: Globe, title: "Global Offers", desc: "Promote in 150+ countries with localized landing pages and multilingual support." },
+    { icon: BarChart3, title: "Real-Time Reporting", desc: "Live dashboards with granular breakdowns by offer, geo, device, and traffic source." }
   ];
 
   return (
-    <section className="py-32 relative">
+    <section id="features" className="py-24 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">Why BigCash Network</h2>
-          <p className="text-gray-400 text-lg font-light">Built by super affiliates, for super affiliates. We provide the infrastructure and exclusive offers needed to scale to the moon.</p>
-        </div>
+        <SectionHeader 
+          subhead="WHY BIGCASH NETWORK"
+          title="Built for Affiliates Who"
+          highlight="Demand More"
+          description="Everything you need to scale your affiliate business, backed by enterprise-grade infrastructure and a team that actually cares."
+        />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((f, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-2xl bg-[#111111] border border-[#222222] glow-hover group relative overflow-hidden"
+              transition={{ delay: i * 0.05 }}
+              className="p-6 rounded-2xl bg-[#111111] border border-[#1f1f1f] hover:border-[#333] transition-colors"
             >
-              {/* Subtle background glow on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#E50914]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              <div className="w-12 h-12 rounded-xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center mb-6 text-gray-400 group-hover:text-[#E50914] group-hover:border-[#E50914]/30 transition-colors">
-                <f.icon className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-transparent border border-[#E50914]/30 flex items-center justify-center mb-6">
+                <f.icon className="w-4 h-4 text-[#E50914]" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3 tracking-tight">{f.title}</h3>
-              <p className="text-gray-400 font-light leading-relaxed">{f.desc}</p>
+              <h3 className="text-sm font-bold text-white mb-2">{f.title}</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -269,73 +290,167 @@ function Features() {
   );
 }
 
-function LivePerformance() {
+function Performance() {
   return (
-    <section id="performance" className="py-32 bg-[#0a0a0a] border-y border-[#1a1a1a]">
+    <section id="performance" className="py-24 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">Live Network Performance</h2>
-            <p className="text-gray-400 text-lg font-light">Real-time transparency. See exactly what's converting across the network right now.</p>
-          </div>
-        </div>
+        <SectionHeader 
+          subhead="LIVE PERFORMANCE"
+          title="Real-Time Network"
+          highlight="Activity"
+          description="Watch the network pulse in real time. Every conversion, payout, and click as it happens."
+        />
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Conversions Widget */}
-          <div className="p-6 rounded-[24px] bg-[#111111] border border-[#222222] flex flex-col justify-between">
-             <div className="flex justify-between items-start mb-8">
-               <h3 className="text-gray-400 font-medium">Live Conversions</h3>
-               <span className="flex h-3 w-3 relative">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E50914] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-[#E50914]"></span>
-                </span>
+        <div className="grid md:grid-cols-3 gap-4">
+          {/* Live Conversions */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6">
+             <div className="flex items-center gap-2 mb-8">
+               <Activity className="w-4 h-4 text-[#E50914]" />
+               <h3 className="text-white font-bold text-sm">Live Conversions</h3>
              </div>
-             
+             <div className="space-y-6">
+               {[
+                 { offer: "Sweepstakes - iPhone...", payout: "$4.50", time: "2s ago" },
+                 { offer: "Finance - Credit Check", payout: "$12.00", time: "5s ago" },
+                 { offer: "Gaming - Casino App", payout: "$35.00", time: "12s ago" },
+               ].map((item, i) => (
+                 <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#E50914]" />
+                      <span className="text-gray-300 text-xs font-medium">{item.offer}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="text-green-500 font-bold">{item.payout}</span>
+                      <span className="text-gray-600 text-[10px] w-8 text-right">{item.time}</span>
+                    </div>
+                 </div>
+               ))}
+             </div>
+          </div>
+
+          {/* Recent Payouts */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6">
+             <div className="flex items-center gap-2 mb-8">
+               <span className="text-[#E50914] font-bold">$</span>
+               <h3 className="text-white font-bold text-sm">Recent Payouts</h3>
+             </div>
+             <div className="space-y-6">
+               {[
+                 { id: "Affiliate #4821", amount: "$24,750", method: "USDT" },
+                 { id: "Affiliate #2158", amount: "$18,200", method: "PayPal" },
+                 { id: "Affiliate #9932", amount: "$9,450", method: "Wire" },
+               ].map((item, i) => (
+                 <div key={i} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gray-600" />
+                      <span className="text-gray-300 text-xs font-medium">{item.id}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="text-[#E50914] font-bold">{item.amount}</span>
+                      <span className="text-gray-600 text-[10px] w-8">{item.method}</span>
+                    </div>
+                 </div>
+               ))}
+             </div>
+          </div>
+
+          {/* Top Countries */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6">
+             <div className="flex items-center gap-2 mb-6">
+               <Globe className="w-4 h-4 text-[#E50914]" />
+               <h3 className="text-white font-bold text-sm">Top Countries</h3>
+             </div>
              <div className="space-y-4">
                {[
-                 { time: 'Just now', offer: 'Win iPhone 15 Pro', geo: 'US', payout: '$2.50' },
-                 { time: '12s ago', offer: 'Auto Insurance Quote', geo: 'CA', payout: '$14.00' },
-                 { time: '45s ago', offer: 'Crypto VSL', geo: 'UK', payout: '$850.00' },
-                 { time: '1m ago', offer: 'Dating SOI', geo: 'AU', payout: '$4.25' }
+                 { name: "United States", code: "US", pct: "42%", w: "w-[80%]" },
+                 { name: "United Kingdom", code: "GB", pct: "18%", w: "w-[35%]" },
+                 { name: "Canada", code: "CA", pct: "12%", w: "w-[25%]" },
+                 { name: "Australia", code: "AU", pct: "8%", w: "w-[15%]" },
+                 { name: "Germany", code: "DE", pct: "6%", w: "w-[10%]" },
                ].map((item, i) => (
-                 <div key={i} className="flex justify-between items-center text-sm border-b border-[#222222]/50 pb-3 last:border-0 last:pb-0">
-                    <div>
-                      <p className="text-white font-medium">{item.offer}</p>
-                      <p className="text-gray-500 text-xs">{item.time} • {item.geo}</p>
+                 <div key={i} className="flex items-center gap-3">
+                    <span className="text-white font-bold text-[10px] w-4">{item.code}</span>
+                    <div className="flex-1">
+                      <div className="flex justify-between text-[10px] mb-1.5">
+                        <span className="text-gray-400 font-medium">{item.name}</span>
+                        <span className="text-gray-500">{item.pct}</span>
+                      </div>
+                      <div className="w-full h-1 bg-[#1f1f1f] rounded-full">
+                        <div className={`h-full bg-[#E50914] rounded-full ${item.w}`} />
+                      </div>
                     </div>
-                    <span className="text-[#E50914] font-mono font-medium">{item.payout}</span>
                  </div>
                ))}
              </div>
           </div>
-          
-          {/* Top Countries Map Widget */}
-          <div className="p-6 rounded-[24px] bg-[#111111] border border-[#222222] col-span-1 md:col-span-2 relative overflow-hidden flex flex-col justify-between">
-            <div className="absolute top-0 right-0 p-6 z-10">
-              <div className="px-3 py-1 rounded-full bg-[#1a1a1a] border border-[#333333] text-xs font-medium text-gray-400">
-                Top Geos by Volume
-              </div>
-            </div>
-            
-            <h3 className="text-gray-400 font-medium mb-8 relative z-10">Global Heatmap</h3>
-            
-            <div className="relative flex-1 flex items-center justify-center opacity-40">
-              <Globe className="w-64 h-64 text-[#E50914]" strokeWidth={0.5} />
-            </div>
-            
-            <div className="grid grid-cols-4 gap-4 mt-8 relative z-10">
+
+          {/* EPC Leaderboard */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6">
+             <div className="flex items-center gap-2 mb-6">
+               <Award className="w-4 h-4 text-[#E50914]" />
+               <h3 className="text-white font-bold text-sm">EPC Leaderboard</h3>
+             </div>
+             <div className="space-y-4">
                {[
-                 { c: 'United States', v: '42%' },
-                 { c: 'United Kingdom', v: '18%' },
-                 { c: 'Australia', v: '12%' },
-                 { c: 'Canada', v: '9%' }
-               ].map((geo, i) => (
-                 <div key={i}>
-                   <p className="text-2xl font-display font-semibold text-white">{geo.v}</p>
-                   <p className="text-xs text-gray-500 uppercase tracking-wider">{geo.c}</p>
+                 { rank: 1, name: "Finance - Credit Check", epc: "$12.47", change: "+15%" },
+                 { rank: 2, name: "Gaming - Casino App", epc: "$8.92", change: "+8%" },
+                 { rank: 3, name: "Dating - Premium", epc: "$6.54", change: "+22%" },
+                 { rank: 4, name: "Sweepstakes - iPhone", epc: "$4.18", change: "+5%" },
+                 { rank: 5, name: "Health - Supplement", epc: "$3.87", change: "+11%" },
+               ].map((item, i) => (
+                 <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-[#1f1f1f] last:border-0 pb-2">
+                    <div className="flex items-center gap-3">
+                      <span className="text-gray-600 font-mono text-[10px] w-2">{item.rank}</span>
+                      <span className="text-gray-300 font-medium">{item.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-bold">{item.epc}</span>
+                      <span className="text-green-500 text-[10px] font-bold w-6 text-right">{item.change}</span>
+                    </div>
                  </div>
                ))}
-            </div>
+             </div>
+          </div>
+
+          {/* Conversion Heatmap */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 flex flex-col">
+             <div className="flex items-center gap-2 mb-6">
+               <BarChart3 className="w-4 h-4 text-[#E50914]" />
+               <h3 className="text-white font-bold text-sm">Conversion Heatmap</h3>
+             </div>
+             <div className="flex-1 grid grid-cols-7 gap-1">
+               {[
+                 'bg-[#222]', 'bg-[#E50914]/20', 'bg-[#E50914]/60', 'bg-[#222]', 'bg-[#E50914]', 'bg-[#E50914]/80', 'bg-[#E50914]/40',
+                 'bg-[#E50914]/20', 'bg-[#222]', 'bg-[#E50914]/80', 'bg-[#E50914]/60', 'bg-[#E50914]/40', 'bg-[#E50914]', 'bg-[#222]',
+                 'bg-[#E50914]/60', 'bg-[#E50914]/40', 'bg-[#222]', 'bg-[#E50914]/20', 'bg-[#E50914]', 'bg-[#E50914]/80', 'bg-[#E50914]/20',
+                 'bg-[#E50914]/80', 'bg-[#E50914]', 'bg-[#E50914]/40', 'bg-[#E50914]/60', 'bg-[#222]', 'bg-[#E50914]/20', 'bg-[#E50914]/40'
+               ].map((opacity, i) => (
+                 <div key={i} className={`rounded-[2px] ${opacity}`} />
+               ))}
+             </div>
+             <div className="flex justify-between items-center text-[10px] text-gray-500 mt-4 font-bold uppercase tracking-widest">
+               <span>Low</span>
+               <div className="flex gap-1">
+                 <div className="w-3 h-2 bg-[#222] rounded-[1px]" />
+                 <div className="w-3 h-2 bg-[#E50914]/20 rounded-[1px]" />
+                 <div className="w-3 h-2 bg-[#E50914]/60 rounded-[1px]" />
+                 <div className="w-3 h-2 bg-[#E50914] rounded-[1px]" />
+               </div>
+               <span>High</span>
+             </div>
+          </div>
+
+          {/* Totals Widget */}
+          <div className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+             <div className="w-16 h-16 rounded-2xl bg-[#161616] border border-[#222] flex items-center justify-center mb-6">
+               <Activity className="w-8 h-8 text-[#E50914]" />
+             </div>
+             <div className="text-5xl font-bold text-white mb-2">2,847</div>
+             <div className="text-gray-500 text-xs font-medium mb-6">Conversions Today</div>
+             <div className="px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 flex items-center gap-2">
+               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+               <span className="text-[10px] font-bold text-green-500 tracking-wide uppercase">Network Active</span>
+             </div>
           </div>
         </div>
       </div>
@@ -344,48 +459,44 @@ function LivePerformance() {
 }
 
 function Categories() {
-  const categories = [
-    { icon: Gift, title: "Sweepstakes", desc: "High-converting CC submit and SOI/DOI sweeps across all Tier 1 geos.", color: "from-purple-500/20 to-purple-500/0", border: "group-hover:border-purple-500/30" },
-    { icon: Smartphone, title: "Mobile Apps", desc: "Premium CPI campaigns for utility, gaming, and entertainment apps.", color: "from-[#E50914]/20 to-[#E50914]/0", border: "group-hover:border-[#E50914]/30" },
-    { icon: Users, title: "Lead Generation", desc: "Exclusive financial, insurance, and solar leads with massive payouts.", color: "from-blue-500/20 to-blue-500/0", border: "group-hover:border-blue-500/30" }
+  const cats = [
+    { icon: Gift, title: "Sweepstakes", desc: "High-engagement prize giveaways with massive conversion rates. iPhones, gift cards, and cash prizes that users cannot resist.", offers: "450+ Offers" },
+    { icon: Smartphone, title: "Mobile Apps", desc: "iOS and Android app installs with competitive CPI payouts. Gaming, finance, health, and utility verticals.", offers: "180+ Offers" },
+    { icon: Users, title: "Lead Generation", desc: "Qualified leads for insurance, finance, education, and home services. Higher payouts for verified, high-intent users.", offers: "320+ Offers" },
   ];
-
   return (
-    <section id="offers" className="py-32">
+    <section id="offers" className="py-24 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">Featured Verticals</h2>
-            <p className="text-gray-400 text-lg font-light">We specialize in the most profitable niches in the industry, securing direct budgets from top advertisers.</p>
-          </div>
-          <button className="flex items-center gap-2 text-[#E50914] font-medium hover:text-red-400 transition-colors">
-            View All Offers <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
+        <SectionHeader 
+          subhead="FEATURED CATEGORIES"
+          title="Offers That"
+          highlight="Convert"
+          description="Hand-picked verticals with proven funnels, optimized landers, and payouts that keep affiliates coming back."
+        />
+        
         <div className="grid md:grid-cols-3 gap-6">
-          {categories.map((c, i) => (
+          {cats.map((c, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-10 rounded-[32px] bg-[#111111] border border-[#222222] group relative overflow-hidden transition-all duration-500 ${c.border}`}
+              className="bg-[#111111] border border-[#1f1f1f] rounded-3xl p-8 hover:border-[#333] transition-colors flex flex-col"
             >
-              <div className={`absolute top-0 left-0 right-0 h-64 bg-gradient-to-b ${c.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className="w-12 h-12 rounded-xl bg-transparent border border-[#333] flex items-center justify-center mb-8">
+                <c.icon className="w-5 h-5 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">{c.title}</h3>
+              <p className="text-gray-500 text-sm leading-relaxed mb-12 flex-1">{c.desc}</p>
               
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center mb-8 text-white">
-                  <c.icon className="w-8 h-8" />
+              <div className="flex items-center justify-between border-t border-[#1f1f1f] pt-6">
+                <div className="px-3 py-1 rounded-full border border-[#E50914]/30 bg-[#E50914]/10 text-[#E50914] text-[10px] font-bold">
+                  {c.offers}
                 </div>
-                <h3 className="text-2xl font-display font-semibold text-white mb-4 tracking-tight">{c.title}</h3>
-                <p className="text-gray-400 font-light leading-relaxed mb-8">{c.desc}</p>
-                
-                <div className="flex items-center justify-between text-sm text-gray-500 border-t border-[#222222] pt-6">
-                  <span>50+ Live Offers</span>
-                  <ChevronRight className="w-4 h-4 group-hover:text-white transition-colors" />
-                </div>
+                <button className="text-gray-500 hover:text-white text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  Explore <ArrowRight className="w-3 h-3" />
+                </button>
               </div>
             </motion.div>
           ))}
@@ -397,90 +508,42 @@ function Categories() {
 
 function HowItWorks() {
   const steps = [
-    { title: "Register", desc: "Apply to join our exclusive network. Approvals are fast for experienced affiliates.", icon: ShieldCheck },
-    { title: "Choose Offers", desc: "Browse our private marketplace and select top-performing campaigns.", icon: MousePointerClick },
-    { title: "Drive Traffic", desc: "Send high-quality traffic using your tracking links.", icon: Globe },
-    { title: "Get Paid", desc: "Receive automated payouts twice a week via your preferred method.", icon: Wallet }
+    { num: "01", title: "Register", desc: "Apply in under 2 minutes. Our team reviews applications within 24 hours.", icon: Users },
+    { num: "02", title: "Choose Offers", desc: "Browse 500+ exclusive offers across Sweepstakes, Apps, and Lead Gen verticals.", icon: MousePointerClick },
+    { num: "03", title: "Drive Traffic", desc: "Use your tracking links, pixels, and postbacks. Real-time stats from day one.", icon: TrendingUp },
+    { num: "04", title: "Get Paid", desc: "Twice weekly payouts via PayPal, USDT, or wire. Net-3 available for top performers.", icon: Wallet },
   ];
 
   return (
-    <section className="py-32 relative bg-[#0a0a0a] border-y border-[#1a1a1a]">
+    <section id="how-it-works" className="py-24 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">How It Works</h2>
-        </div>
+        <SectionHeader 
+          subhead="HOW IT WORKS"
+          title="From Signup to"
+          highlight="Payout in 4 Steps"
+          description="No complicated onboarding. No hidden fees. Just a straightforward path to scaling your affiliate revenue."
+        />
 
-        <div className="relative">
-          {/* Desktop Connecting Line */}
-          <div className="hidden md:block absolute top-12 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-[#333333] to-transparent" />
+        <div className="relative max-w-5xl mx-auto mt-20">
+          {/* Connecting line */}
+          <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-[#E50914] to-transparent opacity-50" />
           
-          <div className="grid md:grid-cols-4 gap-12 md:gap-6">
+          <div className="grid md:grid-cols-4 gap-8">
             {steps.map((s, i) => (
-              <div key={i} className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-24 h-24 rounded-full bg-[#111111] border border-[#222222] flex items-center justify-center mb-6 shadow-xl relative group">
-                  <div className="absolute inset-0 rounded-full bg-[#E50914] opacity-0 group-hover:opacity-10 scale-50 group-hover:scale-100 transition-all duration-500" />
-                  <s.icon className="w-10 h-10 text-gray-400 group-hover:text-white transition-colors" />
-                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#E50914] text-white flex items-center justify-center text-sm font-bold shadow-lg">
-                    {i + 1}
+              <div key={i} className="relative z-10 flex flex-col items-center text-center group">
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 rounded-2xl bg-[#111111] border border-[#1f1f1f] flex items-center justify-center group-hover:border-[#E50914]/50 transition-colors">
+                    <s.icon className="w-6 h-6 text-[#E50914]" />
+                  </div>
+                  <div className="absolute -top-3 -right-3 w-7 h-7 rounded-full bg-[#E50914] border-4 border-[#050505] flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
+                    {s.num}
                   </div>
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3 tracking-tight">{s.title}</h3>
-                <p className="text-gray-400 font-light leading-relaxed px-4">{s.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{s.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed px-4">{s.desc}</p>
               </div>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Testimonials() {
-  const reviews = [
-    { name: "Alex R.", role: "Media Buyer", earning: "$45k/mo", quote: "Switching to BigCash was the best decision for my sweepstakes campaigns. The EPC is literally 30% higher than competitors and I've never missed a payout." },
-    { name: "Sarah J.", role: "App Marketer", earning: "$120k/mo", quote: "Their exclusive mobile app offers convert like crazy on TikTok ads. My dedicated manager is available on Skype at 2 AM to help me optimize." },
-    { name: "Michael T.", role: "Lead Gen Specialist", earning: "$85k/mo", quote: "The tracking infrastructure is bulletproof. Fast loading pages, reliable postbacks, and premium payouts that allow me to bid aggressively." }
-  ];
-
-  return (
-    <section id="testimonials" className="py-32">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-16 text-center tracking-tight">Why Affiliates Love Us</h2>
-        
-        <div className="grid md:grid-cols-3 gap-8">
-          {reviews.map((r, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-2xl glass-panel relative group hover:border-gray-600 transition-colors"
-            >
-              <div className="mb-6 flex gap-1">
-                {[...Array(5)].map((_, j) => (
-                  <svg key={j} className="w-5 h-5 text-[#E50914]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-300 font-light leading-relaxed mb-8 text-lg">"{r.quote}"</p>
-              
-              <div className="flex items-center justify-between border-t border-[#222222] pt-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-gray-600"></div>
-                  <div>
-                    <h4 className="font-medium text-white text-sm">{r.name}</h4>
-                    <p className="text-xs text-gray-500">{r.role}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-0.5">Avg Volume</p>
-                  <p className="font-semibold text-[#E50914] text-sm">{r.earning}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
         </div>
       </div>
     </section>
@@ -488,49 +551,100 @@ function Testimonials() {
 }
 
 function Payments() {
-  const methods = ["PayPal", "USDT (TRC20)", "Wire Transfer", "Payoneer", "Capitalist"];
-  
   return (
-    <section className="py-32 relative overflow-hidden bg-[#0a0a0a] border-y border-[#1a1a1a]">
+    <section className="py-24 bg-[#0a0a0a]">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">Fast Payments You Can Count On</h2>
-          <p className="text-gray-400 text-lg font-light mb-10 leading-relaxed">
-            Cash flow is the lifeblood of affiliate marketing. We offer twice-weekly net-3 payouts for all approved affiliates. Hit a certain volume, and we'll bump you to daily wires.
+          <p className="text-[#E50914] text-[10px] font-bold uppercase tracking-widest mb-4">PAYMENTS</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+            Fast Payments You Can <br/><span className="text-[#E50914]">Count On</span>
+          </h2>
+          <p className="text-gray-400 text-base mb-10 leading-relaxed max-w-md">
+            We know cash flow is everything in affiliate marketing. That is why we offer multiple payout methods with industry-leading speed.
           </p>
           
-          <div className="flex flex-wrap gap-4 mb-10">
-            {methods.map((m, i) => (
-              <div key={i} className="px-5 py-2.5 rounded-full bg-[#111111] border border-[#222222] text-gray-300 text-sm font-medium flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#E50914]" />
-                {m}
+          <div className="flex flex-wrap gap-3 mb-10">
+            <div className="px-4 py-2 rounded-lg border border-[#1f1f1f] bg-[#111111] flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase tracking-wide">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#E50914]" /> Secure & Encrypted
+            </div>
+            <div className="px-4 py-2 rounded-lg border border-[#1f1f1f] bg-[#111111] flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase tracking-wide">
+              <Clock className="w-3.5 h-3.5 text-[#E50914]" /> Twice Weekly
+            </div>
+            <div className="px-4 py-2 rounded-lg border border-[#1f1f1f] bg-[#111111] flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase tracking-wide">
+              <Zap className="w-3.5 h-3.5 text-[#E50914]" /> Same-Day for Top
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {[
+              { name: "PayPal", icon: CreditCard, tag: "Same day", desc: "Instant transfers to your PayPal account. No fees on our end." },
+              { name: "USDT (TRC20)", icon: ArrowRight, tag: "Within 1 hour", desc: "Crypto payouts via TRC20 network. Low fees, fast confirmation." },
+              { name: "Bank Transfer", icon: Lock, tag: "1-2 business days", desc: "Direct wire to your business bank account. Available worldwide." },
+            ].map((m, i) => (
+              <div key={i} className="p-4 rounded-2xl border border-[#1f1f1f] bg-[#111111] flex gap-4">
+                <div className="w-12 h-12 shrink-0 rounded-xl border border-[#222] bg-transparent flex items-center justify-center">
+                  <m.icon className="w-5 h-5 text-[#E50914]" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <h4 className="text-white font-bold text-sm">{m.name}</h4>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-green-500 px-2 py-0.5 rounded-full border border-green-500/20 bg-green-500/10">{m.tag}</span>
+                  </div>
+                  <p className="text-[11px] text-gray-500 leading-relaxed pr-4">{m.desc}</p>
+                </div>
               </div>
             ))}
           </div>
-          
-          <button className="text-white border-b border-[#E50914] pb-1 hover:text-[#E50914] transition-colors inline-flex items-center gap-2">
-            View Payment Terms <ArrowRight className="w-4 h-4" />
-          </button>
         </div>
-        
-        <div className="relative">
-           {/* Abstract illustration of security and payment */}
-           <div className="w-full aspect-square max-w-md mx-auto relative flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border border-[#222222] animate-[spin_60s_linear_infinite]" />
-              <div className="absolute inset-4 rounded-full border border-[#222222] border-dashed animate-[spin_40s_linear_infinite_reverse]" />
-              <div className="absolute inset-8 rounded-full border border-[#333333] animate-[spin_20s_linear_infinite]" />
-              
-              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#E50914]/20 to-transparent flex items-center justify-center glass-panel relative z-10 shadow-[0_0_50px_rgba(229,9,20,0.2)]">
-                 <ShieldCheck className="w-16 h-16 text-[#E50914]" />
-              </div>
-              
-              {/* Floating elements */}
-              <div className="absolute top-10 left-10 p-3 rounded-xl bg-[#111111] border border-[#222222] shadow-xl">
-                <Wallet className="w-6 h-6 text-green-500" />
-              </div>
-              <div className="absolute bottom-10 right-10 p-3 rounded-xl bg-[#111111] border border-[#222222] shadow-xl">
-                <CreditCard className="w-6 h-6 text-blue-500" />
-              </div>
+
+        <div className="bg-[#111111] border border-[#1f1f1f] rounded-3xl p-8 shadow-2xl relative max-w-md mx-auto w-full">
+           <div className="flex flex-col items-center text-center mb-10 mt-4">
+             <div className="w-16 h-16 rounded-2xl bg-[#E50914]/5 border border-[#E50914]/20 flex items-center justify-center mb-6 relative">
+               <div className="absolute inset-0 rounded-2xl border border-[#E50914] opacity-30 blur-sm" />
+               <Wallet className="w-6 h-6 text-[#E50914] relative z-10" />
+             </div>
+             <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-2">Your Next Payout</p>
+             <h3 className="text-4xl font-bold text-white mb-2 tracking-tight">$24,750.00</h3>
+             <p className="text-green-500 text-xs font-bold">Scheduled for Friday</p>
+           </div>
+
+           <div className="space-y-3">
+             <div className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#1f1f1f]">
+               <div className="flex items-center gap-3">
+                 <div className="w-8 h-8 rounded border border-[#222] bg-[#1a1a1a] flex items-center justify-center">
+                   <ArrowRight className="w-3.5 h-3.5 text-[#E50914]" />
+                 </div>
+                 <div>
+                   <div className="text-white text-xs font-bold">USDT Payout</div>
+                   <div className="text-gray-600 text-[10px] font-medium mt-0.5">TRC20 Network</div>
+                 </div>
+               </div>
+               <span className="text-[10px] font-bold text-green-500">Pending</span>
+             </div>
+             <div className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#1f1f1f]">
+               <div className="flex items-center gap-3">
+                 <div className="w-8 h-8 rounded border border-[#222] bg-[#1a1a1a] flex items-center justify-center">
+                   <Lock className="w-3.5 h-3.5 text-gray-500" />
+                 </div>
+                 <div>
+                   <div className="text-white text-xs font-bold">Wire Transfer</div>
+                   <div className="text-gray-600 text-[10px] font-medium mt-0.5">Chase Business</div>
+                 </div>
+               </div>
+               <span className="text-[10px] font-bold text-gray-500">Completed</span>
+             </div>
+             <div className="flex items-center justify-between p-4 rounded-xl bg-[#161616] border border-[#1f1f1f]">
+               <div className="flex items-center gap-3">
+                 <div className="w-8 h-8 rounded border border-[#222] bg-[#1a1a1a] flex items-center justify-center">
+                   <CreditCard className="w-3.5 h-3.5 text-gray-500" />
+                 </div>
+                 <div>
+                   <div className="text-white text-xs font-bold">PayPal</div>
+                   <div className="text-gray-600 text-[10px] font-medium mt-0.5">Instant</div>
+                 </div>
+               </div>
+               <span className="text-[10px] font-bold text-gray-500">Completed</span>
+             </div>
            </div>
         </div>
       </div>
@@ -540,22 +654,38 @@ function Payments() {
 
 function Community() {
   return (
-    <section id="community" className="py-20 border-b border-[#222222]">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <h3 className="text-2xl font-semibold text-white mb-10 tracking-tight">Join Our Elite Community</h3>
-        <div className="flex flex-wrap justify-center gap-6">
-          <a href="#" className="flex items-center gap-3 px-6 py-4 rounded-xl bg-[#111111] border border-[#222222] hover:border-[#E50914]/50 transition-colors group shadow-lg">
-            <MessageSquare className="w-6 h-6 text-[#5865F2]" />
-            <span className="font-medium text-gray-300 group-hover:text-white">Discord Server</span>
-          </a>
-          <a href="#" className="flex items-center gap-3 px-6 py-4 rounded-xl bg-[#111111] border border-[#222222] hover:border-[#E50914]/50 transition-colors group shadow-lg">
-            <svg className="w-6 h-6 text-[#0088cc]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.88 1.2-5.32 3.52-.5.35-.96.52-1.37.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.36-.48.97-.74 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.36-1.77 4.85-1.78.11 0 .35.03.48.14.11.08.14.2.16.29.02.13.02.26 0 .44z"/></svg>
-            <span className="font-medium text-gray-300 group-hover:text-white">Telegram Group</span>
-          </a>
-          <a href="#" className="flex items-center gap-3 px-6 py-4 rounded-xl bg-[#111111] border border-[#222222] hover:border-[#E50914]/50 transition-colors group shadow-lg">
-            <PlayCircle className="w-6 h-6 text-red-500" />
-            <span className="font-medium text-gray-300 group-hover:text-white">Video Tutorials</span>
-          </a>
+    <section id="community" className="py-24 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-6">
+        <SectionHeader 
+          subhead="COMMUNITY"
+          title="Connect, Learn,"
+          highlight="Grow"
+          description="You are not alone. Join a community of serious affiliates who share tactics, celebrate wins, and help each other scale."
+        />
+
+        <div className="grid md:grid-cols-4 gap-6">
+          {[
+            { icon: MessageSquare, title: "Discord", desc: "Join 2,000+ affiliates in our active Discord community. Get help, share strategies, and network.", stats: "2,400+", link: "Join Discord" },
+            { icon: Send, title: "Telegram", desc: "Get instant updates on new offers, payout schedules, and network announcements.", stats: "4,100+", link: "Join Telegram" },
+            { icon: BookOpen, title: "Knowledge Base", desc: "Comprehensive guides on tracking setup, optimization tactics, and compliance best practices.", stats: "120+ Articles", link: "Explore Guides" },
+            { icon: MonitorPlay, title: "Video Tutorials", desc: "Step-by-step video walkthroughs for beginners and advanced affiliate strategies.", stats: "80+ Videos", link: "Watch Videos" },
+          ].map((c, i) => (
+            <div key={i} className="bg-[#111111] border border-[#1f1f1f] rounded-2xl p-6 flex flex-col hover:border-[#333] transition-colors group">
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                   <c.icon className="w-5 h-5 text-white" />
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-white transition-colors mt-2" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-3">{c.title}</h3>
+              <p className="text-xs text-gray-500 leading-relaxed mb-8 flex-1">{c.desc}</p>
+              
+              <div className="flex items-center justify-between border-t border-[#1f1f1f] pt-4">
+                <span className="text-[10px] text-gray-500 font-bold">{c.stats}</span>
+                <span className="text-[#E50914] text-[10px] font-bold">{c.link}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -564,17 +694,31 @@ function Community() {
 
 function CTA() {
   return (
-    <section className="py-32 relative overflow-hidden bg-[#E50914] text-center">
-      {/* Dark overlay for premium feel */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#090909] via-transparent to-[#090909] opacity-90" />
+    <section className="py-32 bg-[#090909] border-t border-[#1f1f1f] relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#E50914] rounded-full blur-[200px] opacity-[0.05] pointer-events-none" />
       
-      <div className="relative z-10 max-w-3xl mx-auto px-6">
-        <h2 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 tracking-tight">Ready to Scale Your Affiliate Business?</h2>
-        <p className="text-xl text-gray-300 mb-10 font-light">Join the most exclusive network in the industry. Spaces are limited for new affiliates to ensure we provide the best support to our active members.</p>
+      <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#222222] bg-[#111111] mb-8">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#E50914]" />
+          <span className="text-[10px] font-bold text-gray-400 tracking-wide">Applications reviewed within 24 hours</span>
+        </div>
         
-        <button className="h-14 px-10 rounded-full bg-white text-[#090909] text-lg font-semibold hover:bg-gray-200 transition-all shadow-xl hover:scale-105 active:scale-95">
-          Join BigCash Network
+        <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+          Ready to Scale Your <br/><span className="text-[#E50914]">Affiliate Business?</span>
+        </h2>
+        <p className="text-base text-gray-400 mb-10 max-w-xl mx-auto">
+          Join the network where top affiliates earn more. Faster approvals, exclusive offers, and payouts you can count on.
+        </p>
+        
+        <button className="bg-[#E50914] text-white px-8 py-4 rounded-xl font-bold text-base hover:bg-[#ff1a26] transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(229,9,20,0.3)] mx-auto mb-10 w-fit">
+          Join BigCash Network <ArrowRight className="w-4 h-4" />
         </button>
+        
+        <div className="flex items-center justify-center gap-8 text-[10px] text-gray-500 font-bold uppercase tracking-widest">
+          <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-green-500 rounded-full" /> No setup fees</div>
+          <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-green-500 rounded-full" /> 24h approval</div>
+          <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 bg-green-500 rounded-full" /> Cancel anytime</div>
+        </div>
       </div>
     </section>
   );
@@ -582,59 +726,67 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="bg-[#0c0c0c] pt-20 pb-10 border-t border-[#222222]">
+    <footer className="bg-[#050505] pt-20 pb-10 border-t border-[#1f1f1f]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-10 mb-16">
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-6 h-6 rounded-sm bg-[#E50914] flex items-center justify-center">
+        <div className="grid md:grid-cols-6 gap-10 mb-16">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-[#E50914] rounded-lg flex items-center justify-center">
+                <span className="font-bold text-white text-sm tracking-tighter">BC</span>
               </div>
-              <span className="font-display font-bold text-lg tracking-tighter text-white">BIGCASH</span>
+              <span className="font-bold text-xl tracking-tight text-white flex items-baseline">BigCash<span className="text-[#E50914] text-2xl leading-none">.</span></span>
             </div>
-            <p className="text-sm text-gray-500 font-light leading-relaxed">
-              The enterprise-grade CPA network for super affiliates. Maximum traffic. Maximum payouts.
+            <p className="text-xs text-gray-500 leading-relaxed pr-8 mb-8">
+              The premium CPA affiliate network built for affiliates who demand more. Enterprise-grade tracking, exclusive offers, and twice-weekly payouts.
             </p>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-medium mb-4">Platform</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-white transition-colors">Offers Marketplace</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Tracking API</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Reporting Dashboard</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Payment Schedule</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-medium mb-4">Company</h4>
-            <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-medium mb-4">Connect</h4>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">
-                <MessageSquare className="w-5 h-5" />
+              <a href="#" className="w-10 h-10 rounded-xl border border-[#222] bg-[#111] flex items-center justify-center text-gray-400 hover:text-white hover:border-[#444] transition-colors">
+                <MessageSquare className="w-4 h-4" />
               </a>
-              <a href="#" className="text-gray-500 hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.11.03-1.88 1.2-5.32 3.52-.5.35-.96.52-1.37.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.36-.48.97-.74 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.36-1.77 4.85-1.78.11 0 .35.03.48.14.11.08.14.2.16.29.02.13.02.26 0 .44z"/></svg>
+              <a href="#" className="w-10 h-10 rounded-xl border border-[#222] bg-[#111] flex items-center justify-center text-gray-400 hover:text-white hover:border-[#444] transition-colors">
+                <Send className="w-4 h-4" />
               </a>
             </div>
           </div>
-        </div>
-        
-        <div className="pt-8 border-t border-[#1a1a1a] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} BigCash Network. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-xs text-gray-600">
-            <Lock className="w-3 h-3" /> Secure Enterprise Platform
+          
+          <div>
+            <h4 className="text-white font-bold text-xs mb-6">Product</h4>
+            <ul className="space-y-4 text-xs font-medium text-gray-500">
+              <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Offers</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">API Docs</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-white font-bold text-xs mb-6">Company</h4>
+            <ul className="space-y-4 text-xs font-medium text-gray-500">
+              <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-white font-bold text-xs mb-6">Legal</h4>
+            <ul className="space-y-4 text-xs font-medium text-gray-500">
+              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">GDPR</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 className="text-white font-bold text-xs mb-6">Resources</h4>
+            <ul className="space-y-4 text-xs font-medium text-gray-500">
+              <li><a href="#" className="hover:text-white transition-colors">Knowledge Base</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Video Tutorials</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Affiliate Guide</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -644,16 +796,14 @@ function Footer() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#090909]">
       <Navbar />
       <main>
         <Hero />
-        <TrustBar />
         <Features />
-        <LivePerformance />
+        <Performance />
         <Categories />
         <HowItWorks />
-        <Testimonials />
         <Payments />
         <Community />
         <CTA />
