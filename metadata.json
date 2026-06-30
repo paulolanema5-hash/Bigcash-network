@@ -1,0 +1,6 @@
+{
+  "name": "BigCash Network",
+  "description": "Premium CPA Affiliate Network",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
